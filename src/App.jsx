@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import SignUp from "./components/SignUp";
 import Signin from "./components/Signin";
-import { ForgotPassword } from "./components/forgot-Password";
+import { ForgotPassword } from "./components/Forgot-Password";
 import Home from "./components/Home";
 import CreateEditShop from "./components/CreateEditShop";
 import AddItem from "./components/AddItem";
