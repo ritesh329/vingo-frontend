@@ -36,9 +36,11 @@ const Signin = () => {
         body: JSON.stringify(formData),
       });
 
+      
       const data = await res.json();
+       console.log("Signin response status:", data);
       if (!res.ok) throw new Error(data.error || "Signin failed");
-
+      localStorage.setItem("token", data?.user?.token); // ✅ Store token in localStorage
       dispatch(setUserData(data.user || data));
       alert("Login successful!");
     } catch (err) {

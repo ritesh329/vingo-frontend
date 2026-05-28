@@ -6,7 +6,7 @@ import { setAddress, setLocation } from '../redux/mapSlice';
 const useUpdateLocation = () => {
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.user);
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
 
     const updateLocation = async (lat, lon) => {
@@ -18,6 +18,7 @@ const useUpdateLocation = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "authorization": `Bearer ${token}`
           },
           body: JSON.stringify({ lat, lon }),
           credentials: 'include'

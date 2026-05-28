@@ -5,6 +5,7 @@ import { DeliveryBoyTracking } from "./DeliveryBoyTracking";
 import { useSelector } from "react-redux";
 
 function TrackOrderPage() {
+  const token = localStorage.getItem("token");
   const { orderId } = useParams();
   const [orderCurrent, setOrderCurrent] = useState(null);
   const {socket}=useSelector(state=>state.user);
@@ -12,10 +13,11 @@ function TrackOrderPage() {
   const [liveLocations,setLiveLocations]=useState({});
   const handleGetOrder = async () => {
     try {
-      const result = await fetch(`http://localhost:3000/api/order/get-order-by-id/${orderId}`, {
+      const result = await fetch(`https://vingo-sozm.onrender.com/api/order/get-order-by-id/${orderId}`, {
         method: "GET",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+            "authorization": `Bearer ${token}`,
         },
         credentials: "include"
       });

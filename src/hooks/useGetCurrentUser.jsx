@@ -4,13 +4,15 @@ import { setUserData } from '../redux/userSlice';
 
 const useGetCurrentUser = () => {
   const dispatch = useDispatch();
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await fetch('https://vingo-sozm.onrender.com/api/user/Current', {
           method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' ,
+          'authorization': `Bearer ${token}`
+          },
           credentials: 'include',
         });
 

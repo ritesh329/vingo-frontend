@@ -7,6 +7,7 @@ import { OwnerItemCard } from "./OwnerItemCard";
 import { setMyShopData } from "../redux/ownerSlice";
 
 function OwnerDashBoard() {
+  const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,10 +19,11 @@ function OwnerDashBoard() {
   useEffect(() => {
     const fetchShop = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/shop/get-my-account", {
+        const res = await fetch("https://vingo-sozm.onrender.com/api/shop/get-my-account", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+              "authorization": `Bearer ${token}`,
           },
           credentials: "include", // ✅ send cookies for auth
         });

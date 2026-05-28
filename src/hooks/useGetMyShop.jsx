@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMyShopData } from "../redux/ownerSlice";
 
 const useGetMyshop = () => {
+ const token = localStorage.getItem("token");
   const dispatch = useDispatch();
    const {userData}=useSelector(state=>state.user);
   useEffect(() => {
@@ -12,6 +13,7 @@ const useGetMyshop = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "authorization": `Bearer ${token}`
           },
           credentials: "include", // ✅ Cookies bhejne ke liye
         });

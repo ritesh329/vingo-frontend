@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setShopsInMyCity } from "../redux/userSlice";
 
 const useGetShopsByCity = () => {
+  const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const { city } = useSelector((state) => state.user);
 
@@ -21,7 +22,7 @@ const useGetShopsByCity = () => {
           `https://vingo-sozm.onrender.com/api/shop/get-shop-city/${city}`,
           {
             method: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "authorization": `Bearer ${token}` },
             credentials: "include",
           }
         );

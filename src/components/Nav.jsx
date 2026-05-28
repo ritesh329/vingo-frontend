@@ -12,7 +12,7 @@ import { clearUserData, setSearchItems } from "../redux/userSlice";
 function Nav() {
 
   const { userData, city,cartItems } = useSelector((state) => state.user);
- 
+const token = localStorage.getItem("token");
   const { myShopData } = useSelector((state) => state.owner);
   const [showInfo, setShowInfo] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
@@ -24,6 +24,9 @@ function Nav() {
       const result = await fetch("https://vingo-sozm.onrender.com/api/auth/signout", {
         method: "GET",
         credentials: "include",
+        headers: {
+                 authorization: `Bearer ${token}`,
+        }                                                           
       });
 
       const data = await result.json();
@@ -47,7 +50,8 @@ function Nav() {
       const result = await fetch(`https://vingo-sozm.onrender.com/api/item/search-items?query=${query}&city=${city}`, {
         method: "GET",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
         },
         credentials: "include"
       });

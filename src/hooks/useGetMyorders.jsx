@@ -5,7 +5,7 @@ import { setMyOrders } from "../redux/userSlice";
 const useGetMyOrders = () => {
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.user);
-
+   const token = localStorage.getItem("token");
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -13,6 +13,7 @@ const useGetMyOrders = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "authorization": `Bearer ${token}`
           },
           credentials: "include", // ✅ Send cookies/session
         });

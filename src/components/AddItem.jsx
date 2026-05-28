@@ -8,6 +8,7 @@ import { setMyShopData } from "../redux/ownerSlice";
 function AddItem() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
 
   const { myShopData } = useSelector((state) => state.owner);
 
@@ -72,6 +73,9 @@ function AddItem() {
         method: "POST",
         body: data,
         credentials: "include",
+        headers: {
+          authorization: token, // ✅ Include token in headers if needed by backend
+        }
       });
 
       const resData = await result.json();

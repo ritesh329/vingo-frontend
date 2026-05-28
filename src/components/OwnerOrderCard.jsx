@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { updateOrderStatus } from '../redux/userSlice';
 import { useState } from 'react';
 function OwnerOrderCard({data}) {
+
+  const token = localStorage.getItem("token");
  
   const [availableBoys,setAvailableBoys]=useState([])
    
@@ -11,11 +13,13 @@ function OwnerOrderCard({data}) {
 const handleUpdateStatus = async (orderId, shopId, status) => {
   try {
     const result = await fetch(
-      `http://localhost:3000/api/order/update-status/${orderId}/${shopId}`,
+      `https://vingo-sozm.onrender.com/api/order/update-status/${orderId}/${shopId}`,
       {
         method: "POST",
         headers: {
+          
           "Content-Type": "application/json",
+          "authorization": `Bearer ${token}`,
         },
         credentials: "include",
         body: JSON.stringify({ status }) // ✅ send status in the body

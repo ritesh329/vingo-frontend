@@ -9,6 +9,7 @@ import FoodCard from "./FoodCard"
 import { TiArrowLeft } from "react-icons/ti";
 function Shop() {
     
+    const token = localStorage.getItem("token");
      const navigate=useNavigate()
     const {shopId}=useParams()
     const [items,setItems]=useState([])
@@ -20,7 +21,8 @@ function Shop() {
              const result = await fetch(`https://vingo-sozm.onrender.com/api/item/get-by-shop/${shopId}`, {
         method: "GET",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "authorization": `Bearer ${token}`
         },
         credentials: "include"
       });

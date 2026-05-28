@@ -6,6 +6,7 @@ import { FaUtensils } from "react-icons/fa";
 import { setMyShopData } from "../redux/ownerSlice";
 
 function EditOwnerItem() {
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { itemId } = useParams();
@@ -81,7 +82,11 @@ function EditOwnerItem() {
 
       const response = await fetch(
         `https://vingo-sozm.onrender.com/api/item/edit-item/${itemId}`,
-        { method: "POST", body: data, credentials: "include" }
+        { method: "POST", body: data, credentials: "include",
+          headers: {
+            "authorization": `Bearer ${token}`
+          }
+        }
       );
 
       const resData = await response.json();
@@ -104,7 +109,11 @@ function EditOwnerItem() {
       try {
         const response = await fetch(
           `https://vingo-sozm.onrender.com/api/item/get-by-id/${itemId}`,
-          { method: "GET", credentials: "include" }
+          { method: "GET", credentials: "include",
+            headers:{
+                authorization: `Bearer ${token}`,
+            }
+           }
         );
 
         const data = await response.json();

@@ -15,6 +15,7 @@ import { FaCreditCard } from "react-icons/fa";
 import { setAddress, setLocation } from '../redux/mapSlice';
 import { addMyOrders } from '../redux/userSlice';
 function CheckOut() {
+  const token = localStorage.getItem("token");
   //  const [searchLocation,setSearchLocation]=useState("")
   const {cartItems,totalAmount}=useSelector(state=>state.user);
    const {location,address}=useSelector(state=>state.map);
@@ -93,7 +94,10 @@ function CheckOut() {
 `,{
   method:"GET",
  headers: {
-     'Content-type':'application/json'
+     'Content-type':'application/json',
+     headers: {
+          authorization: token, // ✅ Include token in headers if needed by backend
+        }
   }
 
 })
@@ -125,10 +129,11 @@ function CheckOut() {
   // },[address])
 const handlePlaceOrder = async () => {
   try {
-    const result = await fetch("http://localhost:3000/api/order/place-order", {
+    const result = await fetch("https://vingo-sozm.onrender.com/api/order/place-order", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+          authorization: token, // ✅ Include token in headers if needed by backend
       },
       credentials: "include", // 👈 keep cookies/session
       body: JSON.stringify({

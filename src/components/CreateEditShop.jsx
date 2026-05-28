@@ -8,7 +8,7 @@ import { setMyShopData } from "../redux/ownerSlice";
 function CreateEditShop() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+const token = localStorage.getItem("token");
   const { myShopData } = useSelector((state) => state.owner);
   const { city, stateName, currentAddress } = useSelector((state) => state.user);
 
@@ -58,6 +58,11 @@ function CreateEditShop() {
         method: "POST",
         body: data,
         credentials: "include",
+       
+        headers: {
+          authorization: `Bearer ${token}`, // ✅ Include token in headers if needed by backend
+        }
+        
       });
 
       const resData = await result.json();

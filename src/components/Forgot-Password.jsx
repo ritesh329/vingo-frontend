@@ -3,6 +3,7 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
   import { ClipLoader } from "react-spinners";
 export const ForgotPassword = () => {
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
 
@@ -18,6 +19,7 @@ export const ForgotPassword = () => {
 
   // 🔹 Send OTP
   const handleSendOtp = async () => {
+    const token = localStorage.getItem("token");
 
     setLoading(true);
 
@@ -30,7 +32,9 @@ export const ForgotPassword = () => {
     try {
       const response = await fetch("https://vingo-sozm.onrender.com/api/auth/otp-send", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" ,
+            authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({ email })   // ✅ Correct format
       });
 
@@ -65,7 +69,7 @@ export const ForgotPassword = () => {
     try {
       const response = await fetch("https://vingo-sozm.onrender.com/api/auth/verify-otp", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",  authorization: `Bearer ${token}`, },
         body: JSON.stringify({ email, otp })  
       });
 
@@ -101,8 +105,11 @@ export const ForgotPassword = () => {
     try {
       const response = await fetch("https://vingo-sozm.onrender.com/api/auth/reset-password", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, newPassword })  // ✅ Correct format
+        headers: { "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ email, newPassword })
+          // ✅ Correct format
       });
 
       const data = await response.json();

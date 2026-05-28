@@ -5,6 +5,7 @@ import { setMyShopData } from "../redux/ownerSlice";
 import { useDispatch } from "react-redux";
 
 export const OwnerItemCard = ({ data }) => {
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const dispatch=useDispatch();
     // const { userData } = useSelector((state) => state.user);
@@ -12,11 +13,12 @@ export const OwnerItemCard = ({ data }) => {
 const handleDelete = async (itemId) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/item/delete/${itemId}`,
+      `https://vingo-sozm.onrender.com/api/item/delete/${itemId}`,
       {
         method: "DELETE", // ✅ Correct method
         headers: {
-          "Content-Type": "application/json", // ✅ Correct header
+          "Content-Type": "application/json",
+             "authorization": `Bearer ${token}`, // ✅ Correct header
         },
         credentials: "include", // ✅ For sending cookies/session
       }

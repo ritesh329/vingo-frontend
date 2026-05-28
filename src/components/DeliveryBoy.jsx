@@ -5,7 +5,7 @@ import Nav from "./Nav";
 import { DeliveryBoyTracking } from "./DeliveryBoyTracking";
 function DeliveryBoy() {
   const { userData ,socket} = useSelector((state) => state.user);
-
+const token = localStorage.getItem("token");
   const [availableAssignments, setAvailableAssignments] = useState([]);
   const [currentOrder, setCurrentOrder] = useState();
   const [showOtpBox,setShowOtpBox]=useState(false)
@@ -65,6 +65,7 @@ function DeliveryBoy() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
         },
         credentials: "include",
       });
@@ -92,6 +93,7 @@ function DeliveryBoy() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
         },
         credentials: "include",
       });
@@ -125,6 +127,7 @@ function DeliveryBoy() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
       },
       credentials: "include",
     });
@@ -162,6 +165,7 @@ function DeliveryBoy() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
       },
       credentials: "include",
       body: JSON.stringify({
@@ -194,6 +198,7 @@ const verifyOtp = async () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
       },
       credentials: "include",
       // ✅ FIX: JSON.stringify takes ONE object only
